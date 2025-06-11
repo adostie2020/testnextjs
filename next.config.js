@@ -69,6 +69,10 @@ module.exports = () => {
     reactStrictMode: true,
     trailingSlash: false,
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+    typescript: {
+      ignoreBuildErrors: false,
+      tsconfigPath: './tsconfig.json'
+    },
     eslint: {
       dirs: ['app', 'components', 'layouts', 'scripts'],
     },
@@ -81,7 +85,9 @@ module.exports = () => {
       ],
       unoptimized,
     },
+    // Only apply headers when not using export
     async headers() {
+      if (process.env.EXPORT) return []
       return [
         {
           source: '/(.*)',
