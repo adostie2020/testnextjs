@@ -51,8 +51,30 @@ export const ordersColumns: ColumnDef<Order>[] = [
     header: 'Quantity',
   },
   {
-    accessorKey: 'price',
-    header: 'Price',
+    accessorKey: "price",
+    header: () => <div className="text-right">Price</div>,
+    cell: ({ row }) => {
+      const price = parseFloat(row.getValue("price"))
+      const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(price)
+ 
+      return <div className="text-right font-medium">{formatted}</div>
+    },
+  },
+  {
+    accessorKey: "stopPrice",
+    header: () => <div className="text-right">Stop Price</div>,
+    cell: ({ row }) => {
+      const stopPrice = parseFloat(row.getValue("stopPrice"))
+      const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(stopPrice)
+ 
+      return <div className="text-right font-medium">{formatted}</div>
+    },
   },
 ]
 
@@ -71,7 +93,29 @@ export const positionsColumns: ColumnDef<Positions>[] = [
   },
   {
     accessorKey: 'price',
-    header: 'Price',
+    header: () => <div className="text-right">Price</div>,
+    cell: ({ row }) => {
+      const price = parseFloat(row.getValue("price"))
+      const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(price)
+ 
+      return <div className="text-right font-medium">{formatted}</div>
+    },
+  },
+  {
+    accessorKey: "stopPrice",
+    header: () => <div className="text-right">Stop Price</div>,
+    cell: ({ row }) => {
+      const stopPrice = parseFloat(row.getValue("stopPrice"))
+      const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(stopPrice)
+ 
+      return <div className="text-right font-medium">{formatted}</div>
+    },
   },
   {
     accessorKey: 'quantity',
@@ -83,6 +127,15 @@ export const positionsColumns: ColumnDef<Positions>[] = [
   },
   {
     accessorKey: 'profitLoss',
-    header: 'P/L',
+    header: () => <div className="text-right">P/L</div>,
+    cell: ({ row }) => {
+      const profitLoss = parseFloat(row.getValue("profitLoss"))
+      const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(profitLoss)
+ 
+      return <div className="text-right font-medium">{formatted}</div>
+    },
   },
 ]
