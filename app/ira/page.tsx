@@ -5,33 +5,33 @@ async function getOrdersData(): Promise<Order[]> {
   // Placeholder data for orders
   return [
     {
-      symbol: 'AAPL',
+      symbol: 'VTI',
       date: '2024-01-15',
       status: 'completed',
-      allocation: 25000,
-      type: 'Buy Long',
-      quantity: 100,
-      price: 185.92,
-      stopPrice: 0,
-    },
-    {
-      symbol: 'MSFT',
-      date: '2024-01-14',
-      status: 'pending',
       allocation: 15000,
-      type: 'Sell Short',
-      quantity: 50,
-      price: 389.55,
-      stopPrice: 0,
-    },
-    {
-      symbol: 'GOOGL',
-      date: '2024-01-13',
-      status: 'processing',
-      allocation: 20000,
       type: 'Buy Long',
       quantity: 75,
-      price: 142.65,
+      price: 235.45,
+      stopPrice: 0,
+    },
+    {
+      symbol: 'VXUS',
+      date: '2024-01-14',
+      status: 'pending',
+      allocation: 10000,
+      type: 'Buy Long',
+      quantity: 150,
+      price: 57.25,
+      stopPrice: 0,
+    },
+    {
+      symbol: 'BND',
+      date: '2024-01-13',
+      status: 'completed',
+      allocation: 5000,
+      type: 'Buy Long',
+      quantity: 65,
+      price: 72.85,
       stopPrice: 0,
     },
   ]
@@ -41,33 +41,33 @@ async function getData(): Promise<Positions[]> {
   // Fetch data from API here.
   return [
     {
-      symbol: 'AAPL',
+      symbol: 'VTI',
       type: 'Long',
       date: '2024-01-15',
-      price: 185.92,
-      quantity: 100,
-      allocation: 25000,
-      profitLoss: 1520.5,
-      stopPrice: 0,
-    },
-    {
-      symbol: 'MSFT',
-      type: 'Short',
-      date: '2024-01-14',
-      price: 389.55,
-      quantity: 50,
+      price: 235.45,
+      quantity: 75,
       allocation: 15000,
-      profitLoss: -850.25,
+      profitLoss: 825.5,
       stopPrice: 0,
     },
     {
-      symbol: 'GOOGL',
+      symbol: 'VXUS',
+      type: 'Long',
+      date: '2024-01-14',
+      price: 57.25,
+      quantity: 150,
+      allocation: 10000,
+      profitLoss: -250.75,
+      stopPrice: 0,
+    },
+    {
+      symbol: 'BND',
       type: 'Long',
       date: '2024-01-13',
-      price: 142.65,
-      quantity: 75,
-      allocation: 20000,
-      profitLoss: 2150.75,
+      price: 72.85,
+      quantity: 65,
+      allocation: 5000,
+      profitLoss: 125.25,
       stopPrice: 0,
     },
   ]
@@ -82,11 +82,10 @@ export default async function DemoPage() {
         {/* Hero Section */}
         <section className="flex flex-col items-center gap-8 pt-8 text-center">
           <h1 className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-4xl font-extrabold tracking-tight text-transparent md:text-6xl dark:from-gray-100 dark:to-gray-400">
-            401K Dashboard
+            IRA Dashboard
           </h1>
           <p className="max-w-2xl text-xl text-gray-600 dark:text-gray-300">
-            Protect your retirement with our comprehensive investment strategies tailored to your
-            goals.
+            Build your retirement nest egg with tax-advantaged investment strategies.
           </p>
         </section>
       </div>

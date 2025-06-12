@@ -5,33 +5,33 @@ async function getOrdersData(): Promise<Order[]> {
   // Placeholder data for orders
   return [
     {
-      symbol: 'AAPL',
+      symbol: 'TSLA',
       date: '2024-01-15',
       status: 'completed',
-      allocation: 25000,
+      allocation: 30000,
       type: 'Buy Long',
-      quantity: 100,
-      price: 185.92,
+      quantity: 150,
+      price: 212.19,
       stopPrice: 0,
     },
     {
-      symbol: 'MSFT',
+      symbol: 'NVDA',
       date: '2024-01-14',
       status: 'pending',
-      allocation: 15000,
-      type: 'Sell Short',
-      quantity: 50,
-      price: 389.55,
+      allocation: 25000,
+      type: 'Buy Long',
+      quantity: 45,
+      price: 547.1,
       stopPrice: 0,
     },
     {
-      symbol: 'GOOGL',
+      symbol: 'META',
       date: '2024-01-13',
-      status: 'processing',
+      status: 'completed',
       allocation: 20000,
-      type: 'Buy Long',
-      quantity: 75,
-      price: 142.65,
+      type: 'Sell Short',
+      quantity: 55,
+      price: 374.49,
       stopPrice: 0,
     },
   ]
@@ -41,33 +41,33 @@ async function getData(): Promise<Positions[]> {
   // Fetch data from API here.
   return [
     {
-      symbol: 'AAPL',
+      symbol: 'TSLA',
       type: 'Long',
       date: '2024-01-15',
-      price: 185.92,
-      quantity: 100,
-      allocation: 25000,
-      profitLoss: 1520.5,
+      price: 212.19,
+      quantity: 150,
+      allocation: 30000,
+      profitLoss: 2250.75,
       stopPrice: 0,
     },
     {
-      symbol: 'MSFT',
-      type: 'Short',
-      date: '2024-01-14',
-      price: 389.55,
-      quantity: 50,
-      allocation: 15000,
-      profitLoss: -850.25,
-      stopPrice: 0,
-    },
-    {
-      symbol: 'GOOGL',
+      symbol: 'NVDA',
       type: 'Long',
+      date: '2024-01-14',
+      price: 547.1,
+      quantity: 45,
+      allocation: 25000,
+      profitLoss: 1875.5,
+      stopPrice: 0,
+    },
+    {
+      symbol: 'META',
+      type: 'Short',
       date: '2024-01-13',
-      price: 142.65,
-      quantity: 75,
+      price: 374.49,
+      quantity: 55,
       allocation: 20000,
-      profitLoss: 2150.75,
+      profitLoss: -950.25,
       stopPrice: 0,
     },
   ]
@@ -82,11 +82,10 @@ export default async function DemoPage() {
         {/* Hero Section */}
         <section className="flex flex-col items-center gap-8 pt-8 text-center">
           <h1 className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-4xl font-extrabold tracking-tight text-transparent md:text-6xl dark:from-gray-100 dark:to-gray-400">
-            401K Dashboard
+            Brokerage Dashboard
           </h1>
           <p className="max-w-2xl text-xl text-gray-600 dark:text-gray-300">
-            Protect your retirement with our comprehensive investment strategies tailored to your
-            goals.
+            Maximize your investment potential with our flexible brokerage solutions.
           </p>
         </section>
       </div>

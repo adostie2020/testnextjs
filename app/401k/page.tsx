@@ -94,7 +94,6 @@ export default async function DemoPage() {
         <h1 className="text-center text-2xl font-bold">Positions</h1>
         <DataTable columns={positionsColumns} data={positionsData} />
         <br />
-        <br />
         <h1 className="text-center text-2xl font-bold">Orders</h1>
         <DataTable columns={ordersColumns} data={ordersData} />
       </div>

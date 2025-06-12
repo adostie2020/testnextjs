@@ -1,8 +1,8 @@
 const headerNavLinks = [
   { href: '/', title: 'Home' },
-  { href: '/blog', title: '401k' },
-  { href: '/tags', title: 'IRA' },
-  { href: '/projects', title: 'Brokerage' },
+  { href: '/401k', title: '401k' },
+  { href: '/ira', title: 'IRA' },
+  { href: '/brokerage', title: 'Brokerage' },
   { href: '/about', title: 'About' },
 ]
 
