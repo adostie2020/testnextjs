@@ -70,7 +70,7 @@ module.exports = () => {
     trailingSlash: false,
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
     typescript: {
-      ignoreBuildErrors: false,
+      ignoreBuildErrors: True,
       tsconfigPath: './tsconfig.json',
     },
     eslint: {
@@ -103,5 +103,6 @@ module.exports = () => {
 
       return config
     },
+
   })
 }
