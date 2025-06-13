@@ -70,11 +70,12 @@ module.exports = () => {
     trailingSlash: false,
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
     typescript: {
-      ignoreBuildErrors: True,
+      ignoreBuildErrors: false,
       tsconfigPath: './tsconfig.json',
     },
     eslint: {
       dirs: ['app', 'components', 'layouts', 'scripts'],
+      ignoreDuringBuilds: true,
     },
     images: {
       remotePatterns: [
