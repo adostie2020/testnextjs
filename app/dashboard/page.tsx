@@ -1,22 +1,19 @@
-import { AppSidebar } from "@/components/components/app-sidebar"
-import { ChartAreaInteractive } from "@/components/components/chart-area-interactive"
-import { DataTable } from "@/components/components/data-table"
-import { SectionCards } from "@/components/components/section-cards"
-import { SiteHeader } from "@/components/components/site-header"
-import {
-  SidebarInset,
-  SidebarProvider,
-} from "@/components/components/ui/sidebar"
+import { AppSidebar } from '@/components/components/app-sidebar'
+import { ChartAreaInteractive } from '@/components/components/chart-area-interactive'
+import { DataTable } from '@/components/components/data-table'
+import { SectionCards } from '@/components/components/section-cards'
+import { SiteHeader } from '@/components/components/site-header'
+import { SidebarInset, SidebarProvider } from '@/components/components/ui/sidebar'
 
-import data from "./data.json"
+import data from './data.json'
 
 export default function Page() {
   return (
     <SidebarProvider
       style={
         {
-          "--sidebar-width": "calc(var(--spacing) * 72)",
-          "--header-height": "calc(var(--spacing) * 12)",
+          '--sidebar-width': 'calc(var(--spacing) * 72)',
+          '--header-height': 'calc(var(--spacing) * 12)',
         } as React.CSSProperties
       }
     >

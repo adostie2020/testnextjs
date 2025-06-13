@@ -71,7 +71,7 @@ module.exports = () => {
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
     typescript: {
       ignoreBuildErrors: false,
-      tsconfigPath: './tsconfig.json'
+      tsconfigPath: './tsconfig.json',
     },
     eslint: {
       dirs: ['app', 'components', 'layouts', 'scripts'],
