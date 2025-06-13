@@ -2,6 +2,10 @@ import { ordersColumns, positionsColumns, Positions, Order } from '@/components/
 import { DataTable } from '@/components/components/ui/DataTable'
 import type { Investments } from 'contentlayer/generated'
 import { ReactNode } from 'react'
+import AccountPosts from './AccountPosts'
+import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
+import { allBlogs } from 'contentlayer/generated'
+
 
 interface Props {
   children: ReactNode
@@ -84,6 +88,9 @@ export default async function AccountLayout({ children, content }: Props) {
   const positionsData = await getData()
   const ordersData = await getOrdersData()
   const { account } = content
+  const sortedPosts = sortPosts(allBlogs)
+  const posts = allCoreContent(sortedPosts)
+  
 
   return (
     <>
@@ -103,6 +110,7 @@ export default async function AccountLayout({ children, content }: Props) {
         <h1 className="text-center text-2xl font-bold">Orders</h1>
         <DataTable columns={ordersColumns} data={ordersData} />
       </div>
+      <AccountPosts posts={posts} />
     </>
   )
 }

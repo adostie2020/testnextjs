@@ -104,6 +104,5 @@ module.exports = () => {
 
       return config
     },
-
   })
 }

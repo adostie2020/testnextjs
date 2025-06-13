@@ -1,6 +1,8 @@
 'use client'
 
 import { ColumnDef } from '@tanstack/react-table'
+import { ArrowUpDown } from "lucide-react"
+import { Button } from '@/components/components/ui/button'
 
 // This type defines the shape of our order data
 export type Order = {
@@ -32,7 +34,20 @@ export const ordersColumns: ColumnDef<Order>[] = [
   },
   {
     accessorKey: 'date',
-    header: 'Date',
+    header: ({ column }) => {
+      return (
+        <div className="flex items-center">
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className="h-8 px-2 lg:px-3"
+          >
+            Date
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        </div>
+      )
+    },
   },
   {
     accessorKey: 'status',
@@ -84,12 +99,21 @@ export const positionsColumns: ColumnDef<Positions>[] = [
     header: 'Ticker Symbol',
   },
   {
-    accessorKey: 'type',
-    header: 'Type',
-  },
-  {
     accessorKey: 'date',
-    header: 'Date',
+    header: ({ column }) => {
+      return (
+        <div className="flex items-center">
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className="h-8 px-2 lg:px-3"
+          >
+            Date
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        </div>
+      )
+    },
   },
   {
     accessorKey: 'price',
@@ -103,6 +127,10 @@ export const positionsColumns: ColumnDef<Positions>[] = [
 
       return <div className="text-right font-medium">{formatted}</div>
     },
+  },
+  {
+    accessorKey: 'type',
+    header: 'Type',
   },
   {
     accessorKey: 'stopPrice',
