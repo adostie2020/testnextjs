@@ -3,9 +3,11 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown } from "lucide-react"
 import { Button } from '@/components/components/ui/button'
+import { Checkbox } from '@/components/components/ui/checkbox'
 
 // This type defines the shape of our order data
 export type Order = {
+  active: 'Active' | 'Inactive'
   symbol: string
   date: string
   status: 'pending' | 'processing' | 'completed' | 'cancelled'
@@ -17,6 +19,7 @@ export type Order = {
 }
 
 export type Positions = {
+  active: 'Active' | 'Inactive'
   symbol: string
   type: string
   date: string
@@ -27,7 +30,29 @@ export type Positions = {
   profitLoss: number
 }
 
+const filters = {'true': 'Active', 'false':undefined};
+
 export const ordersColumns: ColumnDef<Order>[] = [
+  {accessorKey: 'active',
+    header: ({ table }) => (
+      <div className="flex items-center">
+        <Checkbox
+          checked={table.getColumn('active')?.getFilterValue() === 'Active'}
+          onCheckedChange={(value) => {
+            table.getColumn('active')?.setFilterValue(filters[value as string])
+          }}
+          aria-label="Show active positions"
+        />
+        <span className="ml-2">Filter active</span>
+      </div>
+    ),
+    filterFn: (row, id, value) => {
+      if (!value) return true
+      return row.getValue(id) === value
+    },
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: 'symbol',
     header: 'Ticker Symbol',
@@ -67,7 +92,7 @@ export const ordersColumns: ColumnDef<Order>[] = [
   },
   {
     accessorKey: 'price',
-    header: () => <div className="text-right">Price</div>,
+    header: () => <div className="text-left">Price</div>,
     cell: ({ row }) => {
       const price = parseFloat(row.getValue('price'))
       const formatted = new Intl.NumberFormat('en-US', {
@@ -75,12 +100,12 @@ export const ordersColumns: ColumnDef<Order>[] = [
         currency: 'USD',
       }).format(price)
 
-      return <div className="text-right font-medium">{formatted}</div>
+      return <div className="text-left font-medium">{formatted}</div>
     },
   },
   {
     accessorKey: 'stopPrice',
-    header: () => <div className="text-right">Stop Price</div>,
+    header: () => <div className="text-left">Stop Price</div>,
     cell: ({ row }) => {
       const stopPrice = parseFloat(row.getValue('stopPrice'))
       const formatted = new Intl.NumberFormat('en-US', {
@@ -88,12 +113,32 @@ export const ordersColumns: ColumnDef<Order>[] = [
         currency: 'USD',
       }).format(stopPrice)
 
-      return <div className="text-right font-medium">{formatted}</div>
+      return <div className="text-left font-medium">{formatted}</div>
     },
   },
 ]
 
 export const positionsColumns: ColumnDef<Positions>[] = [
+  {accessorKey: 'active',
+    header: ({ table }) => (
+      <div className="flex items-center">
+        <Checkbox
+          checked={table.getColumn('active')?.getFilterValue() === 'Active'}
+          onCheckedChange={(value) => {
+            table.getColumn('active')?.setFilterValue(filters[value as string])
+          }}
+          aria-label="Show active positions"
+        />
+        <span className="ml-2">Filter active</span>
+      </div>
+    ),
+    filterFn: (row, id, value) => {
+      if (!value) return true
+      return row.getValue(id) === value
+    },
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: 'symbol',
     header: 'Ticker Symbol',

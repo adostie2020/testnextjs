@@ -5,7 +5,9 @@ import { ReactNode } from 'react'
 import AccountPosts from './AccountPosts'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
 import { allBlogs } from 'contentlayer/generated'
-
+import { SectionCards } from '@/components/components/section-cards'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/components/ui/tabs"
+import { ChartAreaInteractive } from '@/components/components/chart-area-interactive'
 
 interface Props {
   children: ReactNode
@@ -16,6 +18,7 @@ async function getOrdersData(): Promise<Order[]> {
   // Placeholder data for orders
   return [
     {
+      active: 'Active',
       symbol: 'AAPL',
       date: '2024-01-15',
       status: 'completed',
@@ -26,6 +29,7 @@ async function getOrdersData(): Promise<Order[]> {
       stopPrice: 0,
     },
     {
+      active: 'Inactive',
       symbol: 'MSFT',
       date: '2024-01-14',
       status: 'pending',
@@ -36,6 +40,7 @@ async function getOrdersData(): Promise<Order[]> {
       stopPrice: 0,
     },
     {
+      active: 'Active',
       symbol: 'GOOGL',
       date: '2024-01-13',
       status: 'processing',
@@ -45,6 +50,39 @@ async function getOrdersData(): Promise<Order[]> {
       price: 142.65,
       stopPrice: 0,
     },
+    {
+      active: 'Active',
+      symbol: 'AMZN',
+      date: '2024-01-12',
+      status: 'completed',
+      allocation: 30000,
+      type: 'Buy Long',
+      quantity: 200,
+      price: 151.94,
+      stopPrice: 0,
+    },
+    {
+      active: 'Inactive',
+      symbol: 'META',
+      date: '2024-01-11',
+      status: 'cancelled',
+      allocation: 10000,
+      type: 'Sell Long',
+      quantity: 40,
+      price: 378.99,
+      stopPrice: 0,
+    },
+    {
+      active: 'Active',
+      symbol: 'TSLA',
+      date: '2024-01-10',
+      status: 'completed',
+      allocation: 50000,
+      type: 'Buy Short',
+      quantity: 150,
+      price: 237.49,
+      stopPrice: 0,
+    }
   ]
 }
 
@@ -52,6 +90,7 @@ async function getData(): Promise<Positions[]> {
   // Fetch data from API here.
   return [
     {
+      active: 'Active',
       symbol: 'AAPL',
       type: 'Long',
       date: '2024-01-15',
@@ -62,6 +101,7 @@ async function getData(): Promise<Positions[]> {
       stopPrice: 0,
     },
     {
+      active: 'Inactive',
       symbol: 'MSFT',
       type: 'Short',
       date: '2024-01-14',
@@ -72,6 +112,7 @@ async function getData(): Promise<Positions[]> {
       stopPrice: 0,
     },
     {
+      active: 'Active',
       symbol: 'GOOGL',
       type: 'Long',
       date: '2024-01-13',
@@ -81,6 +122,61 @@ async function getData(): Promise<Positions[]> {
       profitLoss: 2150.75,
       stopPrice: 0,
     },
+    {
+      active: 'Active',
+      symbol: 'AMZN',
+      type: 'Long',
+      date: '2024-01-12',
+      price: 151.94,
+      quantity: 200,
+      allocation: 30000,
+      profitLoss: 3250.00,
+      stopPrice: 0,
+    },
+    {
+      active: 'Inactive',
+      symbol: 'META',
+      type: 'Short',
+      date: '2024-01-11',
+      price: 378.99,
+      quantity: 40,
+      allocation: 10000,
+      profitLoss: -1200.50,
+      stopPrice: 0,
+    },
+    {
+      active: 'Active',
+      symbol: 'TSLA',
+      type: 'Long',
+      date: '2024-01-10',
+      price: 237.49,
+      quantity: 150,
+      allocation: 50000,
+      profitLoss: 4500.25,
+      stopPrice: 0,
+    },
+    {
+      active: 'Active',
+      symbol: 'NVDA',
+      type: 'Long',
+      date: '2024-01-09',
+      price: 485.09,
+      quantity: 30,
+      allocation: 45000,
+      profitLoss: 2800.75,
+      stopPrice: 0,
+    },
+    {
+      active: 'Inactive',
+      symbol: 'AMD',
+      type: 'Short',
+      date: '2024-01-08',
+      price: 162.51,
+      quantity: 100,
+      allocation: 20000,
+      profitLoss: -950.25,
+      stopPrice: 0,
+    }
   ]
 }
 
@@ -91,9 +187,8 @@ export default async function AccountLayout({ children, content }: Props) {
   const sortedPosts = sortPosts(allBlogs)
   const posts = allCoreContent(sortedPosts)
   
-
   return (
-    <>
+    <div>
       <div className="flex flex-col gap-16 pb-16">
         {/* Hero Section */}
         <section className="flex flex-col items-center gap-8 pt-8 text-center">
@@ -104,13 +199,29 @@ export default async function AccountLayout({ children, content }: Props) {
         </section>
       </div>
       <div className="mx-auto flex flex-col gap-8 py-10">
-        <h1 className="text-center text-2xl font-bold">Positions</h1>
-        <DataTable columns={positionsColumns} data={positionsData} />
-        <br />
-        <h1 className="text-center text-2xl font-bold">Orders</h1>
-        <DataTable columns={ordersColumns} data={ordersData} />
+      <div className="flex flex-1 flex-col">
+          <div className="@container/main flex flex-1 flex-col gap-2">
+            <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+              <SectionCards />
+              <div className="px-4 lg:px-6">
+                <ChartAreaInteractive />
+              </div>
+              <Tabs defaultValue="positions">
+                <TabsList>
+                  <TabsTrigger value="positions">Positions</TabsTrigger>
+                  <TabsTrigger value="orders">Orders</TabsTrigger>
+                </TabsList>
+                <TabsContent value="positions">
+                  <DataTable columns={positionsColumns} data={positionsData} />
+                </TabsContent>
+                <TabsContent value="orders">
+                  <DataTable columns={ordersColumns} data={ordersData} />
+                </TabsContent>
+              </Tabs>
+            </div>
+          </div>
+        </div>
       </div>
       <AccountPosts posts={posts} />
-    </>
-  )
+  </div>)
 }
