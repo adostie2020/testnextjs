@@ -1,5 +1,5 @@
 # Frontend TODO
-[] add dashboard sidebar
+[] ADD ACTIONS TABLE TO TOP
 [] add datetime filtering
 [] add plotly integration
 [] add support for unique values for dash cards per account

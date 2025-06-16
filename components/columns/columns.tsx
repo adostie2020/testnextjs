@@ -4,33 +4,65 @@ import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown } from "lucide-react"
 import { Button } from '@/components/components/ui/button'
 import { Checkbox } from '@/components/components/ui/checkbox'
+import { format } from 'date-fns'
 
 // This type defines the shape of our order data
-export type Order = {
-  active: 'Active' | 'Inactive'
+export interface Order {
+  active: string
   symbol: string
-  date: string
-  status: 'pending' | 'processing' | 'completed' | 'cancelled'
+  date: Date
+  status: string
   allocation: number
-  type: 'Buy Long' | 'Sell Long' | 'Buy Short' | 'Sell Short'
+  type: string
   quantity: number
   price: number
   stopPrice: number
 }
 
-export type Positions = {
-  active: 'Active' | 'Inactive'
+export interface Positions {
+  action: string
+  active: string
   symbol: string
   type: string
-  date: string
+  date: Date
   price: number
-  stopPrice: number
   quantity: number
   allocation: number
   profitLoss: number
+  stopPrice: number
 }
 
 const filters = {'true': 'Active', 'false':undefined};
+
+export const StaticTableColumns: ColumnDef<Positions>[] = [
+  {accessorKey: 'action',
+    header: 'Action',
+  },
+  {accessorKey: 'date',
+    header: 'Date',
+  },  
+  {accessorKey: 'price',
+    header: 'Price',
+  },
+  {accessorKey: 'stopPrice',
+    header: 'Stop Price',
+  },
+  {accessorKey: 'quantity',
+    header: 'Quantity',
+  },
+  {accessorKey: 'allocation',
+    header: 'Allocation',
+  },
+  {accessorKey: 'profitLoss',
+    header: 'P/L',
+  },
+  {accessorKey: 'symbol',
+    header: 'Ticker Symbol',
+  },
+  {accessorKey: 'type',
+    header: 'Type',
+  },
+]
 
 export const ordersColumns: ColumnDef<Order>[] = [
   {accessorKey: 'active',
@@ -72,6 +104,10 @@ export const ordersColumns: ColumnDef<Order>[] = [
           </Button>
         </div>
       )
+    },
+    cell: ({ row }) => {
+      const date = row.getValue('date') as Date
+      return format(date, 'MM/dd/yy')
     },
   },
   {
@@ -119,7 +155,14 @@ export const ordersColumns: ColumnDef<Order>[] = [
 ]
 
 export const positionsColumns: ColumnDef<Positions>[] = [
-  {accessorKey: 'active',
+  {accessorKey: 'action',
+    header: 'Action',
+    cell: ({ row }) => {
+      return <div className="text-left font-medium">{row.getValue('action')}</div>
+    },
+  },    
+  {
+    accessorKey: 'active',
     header: ({ table }) => (
       <div className="flex items-center">
         <Checkbox
@@ -145,20 +188,15 @@ export const positionsColumns: ColumnDef<Positions>[] = [
   },
   {
     accessorKey: 'date',
-    header: ({ column }) => {
-      return (
-        <div className="flex items-center">
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-            className="h-8 px-2 lg:px-3"
-          >
-            Date
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        </div>
-      )
+    header: 'Date',
+    cell: ({ row }) => {
+      const date = row.getValue('date') as Date
+      return format(date, 'MM/dd/yy')
     },
+    filterFn: (row, columnId, value: Date) => {
+      const rowDate = row.getValue(columnId) as Date
+      return rowDate.toDateString() === value.toDateString()
+    }
   },
   {
     accessorKey: 'price',
