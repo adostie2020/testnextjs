@@ -3,6 +3,7 @@ import { MDXLayoutRenderer } from 'pliny/mdx-components'
 import AccountLayout from '@/layouts/AccountLayout'
 import { coreContent } from 'pliny/utils/contentlayer'
 import { genPageMetadata } from 'app/seo'
+import Protected from '@/components/Protected';
 
 export const metadata = genPageMetadata({ title: '401k' })
 
@@ -11,8 +12,10 @@ export default function Page() {
   const mainContent = coreContent(account)
 
   return (
-    <AccountLayout content={mainContent}>
-      <MDXLayoutRenderer code={account.body.code} />
-    </AccountLayout>
+    <Protected>
+      <AccountLayout content={mainContent}>
+        <MDXLayoutRenderer code={account.body.code} />
+      </AccountLayout>
+    </Protected>
   )
 }
