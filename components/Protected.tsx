@@ -1,17 +1,20 @@
 'use client';
-import { useSession } from 'next-auth/react';
+import { useSessionContext } from '@supabase/auth-helpers-react';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useEffect } from 'react';
 
 export default function Protected({ children }: { children: ReactNode }) {
-  const { status } = useSession();
+  const { session, isLoading } = useSessionContext();
   const router = useRouter();
 
   useEffect(() => {
-    if (status === 'unauthenticated') router.replace('/signup');
-  }, [status, router]);
+    if (!isLoading && !session) {
+      const current = window.location.pathname + window.location.search;
+      router.replace(`/signup?next=${encodeURIComponent(current)}`);
+    }
+  }, [session, isLoading, router]);
 
-  if (status === 'loading') return <p className="p-4">Loading…</p>;
-  if (status === 'unauthenticated') return null;   // just in case
+  if (isLoading) return <p className="p-4">Loading…</p>;
+  if (!session) return null; // just in case
   return <>{children}</>;
 }

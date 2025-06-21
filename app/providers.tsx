@@ -1,17 +1,25 @@
 'use client';
 
-import { SessionProvider } from 'next-auth/react';
+import { SessionContextProvider } from '@supabase/auth-helpers-react';
+import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { ThemeProvider } from 'next-themes';
 import siteMetadata from '@/data/siteMetadata';
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 
 interface ProvidersProps {
   children: ReactNode;
 }
 
 export default function Providers({ children }: ProvidersProps) {
+  const [supabaseClient] = useState(() =>
+    createBrowserSupabaseClient({
+      supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    })
+  );
+
   return (
-    <SessionProvider>
+    <SessionContextProvider supabaseClient={supabaseClient}>
       <ThemeProvider
         attribute="class"
         defaultTheme={siteMetadata.theme}
@@ -19,6 +27,6 @@ export default function Providers({ children }: ProvidersProps) {
       >
         {children}
       </ThemeProvider>
-    </SessionProvider>
+    </SessionContextProvider>
   );
 }
