@@ -1,12 +1,8 @@
 'use client';
-import { useState, Suspense } from 'react';
+import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import Link from '@/components/Link';
-
-function Loading() {
-  return <h2>🌀 Loading...</h2>;
-}
 
 export default function Login() {
   const [email, setEmail] = useState('');
