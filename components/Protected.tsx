@@ -10,7 +10,7 @@ export default function Protected({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!isLoading && !session) {
       const current = window.location.pathname + window.location.search;
-      router.replace(`/signup?next=${encodeURIComponent(current)}`);
+      router.replace(`/login?next=${encodeURIComponent(current)}`);
     }
   }, [session, isLoading, router]);
 
