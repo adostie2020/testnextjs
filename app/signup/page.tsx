@@ -1,10 +1,10 @@
 'use client';
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 import { useSupabaseClient } from '@supabase/auth-helpers-react'; // still used
 
-export default function Signup() {
+function SignupContent() {
   const [email, setEmail]       = useState('');
   const [password, setPassword] = useState('');
   const [err, setErr]           = useState('');
@@ -53,5 +53,18 @@ export default function Signup() {
         <button className="btn-primary">Sign up</button>
       </form>
     </main>
+  );
+}
+
+export default function Signup() {
+  return (
+    <Suspense fallback={
+      <main className="mx-auto max-w-sm p-4">
+        <h1 className="text-2xl font-bold mb-4">Create Your Account</h1>
+        <p>Loading...</p>
+      </main>
+    }>
+      <SignupContent />
+    </Suspense>
   );
 }

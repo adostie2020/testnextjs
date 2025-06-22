@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSupabaseClient, useSessionContext } from '@supabase/auth-helpers-react';
 
-export default function AuthCallback() {
+function AuthCallbackContent() {
   const router = useRouter();
   const supabase = useSupabaseClient();
   const { isLoading, session } = useSessionContext();
@@ -45,6 +45,19 @@ export default function AuthCallback() {
       <main className="flex items-center justify-center h-screen p-6">
         <p className="text-lg">Finishing sign-in…</p>
       </main>
+    </Suspense>
+  );
+} 
+}
+
+export default function AuthCallback() {
+  return (
+    <Suspense fallback={
+      <main className="flex items-center justify-center h-screen p-6">
+        <p className="text-lg">Loading...</p>
+      </main>
+    }>
+      <AuthCallbackContent />
     </Suspense>
   );
 } 

@@ -1,7 +1,7 @@
 'use client';
 
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
-import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
 import { ThemeProvider } from 'next-themes';
 import siteMetadata from '@/data/siteMetadata';
 import { ReactNode, useState } from 'react';
@@ -12,7 +12,7 @@ interface ProvidersProps {
 
 export default function Providers({ children }: ProvidersProps) {
   const [supabaseClient] = useState(() =>
-    createBrowserSupabaseClient({
+    createPagesBrowserClient({
       supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
       supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     })
