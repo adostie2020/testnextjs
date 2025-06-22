@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import Link from '@/components/Link';
