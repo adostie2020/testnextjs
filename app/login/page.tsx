@@ -1,6 +1,6 @@
 // app/login/page.tsx
 import { Suspense } from 'react';
-import Login from './Login';
+import Login from '@/Login';
 
 function Loading() {
   return <h2>🌀 Loading login page...</h2>;
