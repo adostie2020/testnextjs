@@ -41,10 +41,13 @@ function AuthCallbackContent() {
   }, [supabase, router, nextPath]);
 
   return (
-    <main className="flex items-center justify-center h-screen p-6">
-      <p className="text-lg">Finishing sign-in…</p>
-    </main>
+    <Suspense fallback={<Loading />}>
+      <main className="flex items-center justify-center h-screen p-6">
+        <p className="text-lg">Finishing sign-in…</p>
+      </main>
+    </Suspense>
   );
+} 
 }
 
 export default function AuthCallback() {

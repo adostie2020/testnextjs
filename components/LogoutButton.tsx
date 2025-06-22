@@ -1,6 +1,6 @@
 'use client';
 
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { useSupabaseClient, useSessionContext } from '@supabase/auth-helpers-react';
 import { useRouter } from 'next/navigation';
 
 export default function LogoutButton({
@@ -11,12 +11,15 @@ export default function LogoutButton({
   children?: React.ReactNode;
 }) {
   const supabase = useSupabaseClient();
+  const { session, isLoading } = useSessionContext();
   const router = useRouter();
 
   async function handleClick() {
     await supabase.auth.signOut();
     router.replace(redirectTo);
   }
+
+  if (isLoading || !session) return null;
 
   return (
     <button
