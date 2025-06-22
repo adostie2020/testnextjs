@@ -4,6 +4,10 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import Link from '@/components/Link';
 
+function Loading() {
+  return <h2>🌀 Loading...</h2>;
+}
+
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
