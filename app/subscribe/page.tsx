@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/components/ui/button';
 import { Skeleton } from '@/components/components/ui/skeleton';
 const url = process.env.NEXT_PUBLIC_SITE_URL;
-const function_url = process.env.NEXT_PUBLIC_SUPABASE_FUNCTION_URL;
+const function_url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const ProductDisplay = () => {
   const handleCheckout = async (lookup_key) => {
-    const res = await fetch(function_url + 'stripe-checkout', {
+    const res = await fetch(function_url + '/stripe-checkout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
