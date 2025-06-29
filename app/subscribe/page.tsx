@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js'; 
 import { Button } from '@/components/components/ui/button';
 import { Skeleton } from '@/components/components/ui/skeleton';
 const url = process.env.NEXT_PUBLIC_SITE_URL;
