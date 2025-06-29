@@ -10,11 +10,6 @@ const function_url = process.env.NEXT_PUBLIC_SUPABASE_FUNCTION_URL
 
 const ProductDisplay = () => {
   const handleCheckout = async (lookup_key) => {
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    )
-    const { data, error } = await supabase.auth.getSession()
     try {
       const res = await fetch(function_url + '/stripe-checkout', {
         method: 'POST',
