@@ -23,6 +23,7 @@ export interface MergedColumnsRow {
   StopLoss?: number
 }
 
+export type MergedColumnDef = ColumnDef<MergedColumnsRow>
 // Merged column definitions for flexible table rendering
 export const mergedColumns: ColumnDef<MergedColumnsRow>[] = [
   { accessorKey: 'position', header: 'Position' },

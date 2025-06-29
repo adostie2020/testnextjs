@@ -1,9 +1,10 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { mergedColumns } from '@/components/columns/columns'
+import { mergedColumns, MergedColumnDef, MergedColumnsRow } from '@/components/columns/columns'
 import { DataTable } from '@/components/components/ui/DataTable'
 import { StaticTable } from '@/components/components/ui/StaticTable'
 import { Skeleton } from '@/components/components/ui/skeleton'
+import { ColumnDef } from '@tanstack/react-table'
 
 //TODO call getData through and API route
 
@@ -25,12 +26,17 @@ export function DataTableClient({ account, actions = false, datefilter = false }
 
   const dataKeys = new Set(data.flatMap((obj) => Object.keys(obj)))
   const columns = mergedColumns.filter(
-    (col) => typeof col.accessorKey === 'string' && dataKeys.has(col.accessorKey)
+    (col: ColumnDef<MergedColumnsRow>) =>
+      'accessorKey' in col &&
+      // @ts-ignore
+      (col.accessorKey as string) &&
+      // @ts-ignore
+      dataKeys.has(col.accessorKey)
   )
 
   if (loading) return <Skeleton className="h-2 w-4"></Skeleton>
   return actions ? (
-    <StaticTable columns={columns} data={data} DateFilter={datefilter} />
+    <DataTable columns={columns} data={data} /> //TODO: add static table method
   ) : (
     <DataTable columns={columns} data={data} />
   )
