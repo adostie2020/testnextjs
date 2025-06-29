@@ -64,7 +64,7 @@ export default async function AccountLayout({ children, content }: Props) {
             <div className="flex flex-col py-4 md:py-6">
               <div className="mt-8 flex flex-col gap-4 rounded-lg border border-gray-300 p-4 shadow-sm dark:border-gray-700">
                 <h1 className="text-2xl font-bold"> New today</h1>
-                <StaticTable columns={ordersColumns} data={ordersData} DateFilter={false} />
+                {/*<StaticTable columns={positionsColumns} data={positionsData} DateFilter={false} />*/}
                 <div></div>
                 <div className="px-4 lg:px-6">
                   <ChartAreaInteractive />
