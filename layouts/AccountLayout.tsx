@@ -1,19 +1,16 @@
-export const dynamic = 'force-dynamic' // at the top of /about/page.tsx
-
-import { ordersColumns, positionsColumns, Positions, Order } from '@/components/columns/columns'
-import { DataTable } from '@/components/components/ui/DataTable'
+import { DataTableClient } from '@/components/DataTableClient'
 import type { Investments } from 'contentlayer/generated'
 import { ReactNode, Suspense } from 'react'
 import AccountPosts from './AccountPosts'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
 import { allBlogs } from 'contentlayer/generated'
-import { SectionCards } from '@/components/components/section-cards'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/components/ui/tabs'
 import { ChartAreaInteractive } from '@/components/components/chart-area-interactive'
-import { StaticTable } from '@/components/components/ui/StaticTable'
 import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3'
 import { Skeleton } from '@/components/components/ui/skeleton'
-import { flexRender } from '@tanstack/react-table'
+import { DataTable } from '@/components/components/data-table'
+
+export const dynamic = 'force-dynamic'
 
 interface Props {
   children: ReactNode
@@ -41,9 +38,8 @@ async function getData() {
 }
 
 export default async function AccountLayout({ children, content }: Props) {
-  const positionsData = await getData()
+  const positionsData = [{ action: 'Buy', date: '6/29/25' }]
   const ordersData = await getData()
-  const { account } = content
   const sortedPosts = sortPosts(allBlogs)
   const posts = allCoreContent(sortedPosts)
 
@@ -81,7 +77,7 @@ export default async function AccountLayout({ children, content }: Props) {
                       <DataTable columns={positionsColumns} data={positionsData} />
                     </TabsContent>*/}
                       <TabsContent value="orders">
-                        <DataTable columns={ordersColumns} data={ordersData} />
+                        <DataTableClient account="current.json" />
                       </TabsContent>
                       {/*<TabsContent value="archive">
                       <StaticTable columns={positionsColumns} data={positionsData} DateFilter={true} />
