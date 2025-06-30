@@ -1,10 +1,16 @@
-'use client';
-import Link from './Link';
-import { useSessionContext } from '@supabase/auth-helpers-react';
+'use client'
+import Link from './Link'
+import { useAuth } from '@/lib/auth-context'
 
-export default function LoginButton({ redirectTo = '/login', children = 'Log in' }: { redirectTo?: string; children?: React.ReactNode }) {
-  const { session, isLoading } = useSessionContext();
-  if (isLoading || session) return null;
+export default function LoginButton({
+  redirectTo = '/login',
+  children = 'Log in',
+}: {
+  redirectTo?: string
+  children?: React.ReactNode
+}) {
+  const { session, isLoading } = useAuth()
+  if (isLoading || session) return null
 
   return (
     <Link
@@ -13,5 +19,5 @@ export default function LoginButton({ redirectTo = '/login', children = 'Log in'
     >
       {children}
     </Link>
-  );
-} 
+  )
+}
