@@ -2,7 +2,6 @@
 
 import { ThemeProvider } from 'next-themes'
 import siteMetadata from '@/data/siteMetadata'
-import { AuthProvider } from '@/lib/auth-context'
 import { ReactNode } from 'react'
 
 interface ProvidersProps {
@@ -11,10 +10,8 @@ interface ProvidersProps {
 
 export default function Providers({ children }: ProvidersProps) {
   return (
-    <AuthProvider>
-      <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme} enableSystem>
-        {children}
-      </ThemeProvider>
-    </AuthProvider>
+    <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme} enableSystem>
+      {children}
+    </ThemeProvider>
   )
 }
