@@ -36,29 +36,3 @@ export async function requireAuth(redirectTo = '/login') {
 
   return user
 }
-
-export async function getSession() {
-  const supabase = await createClient()
-
-  try {
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.getSession()
-
-    // AuthSessionMissingError is expected when no session exists
-    if (error && error.message === 'Auth session missing!') {
-      return null
-    }
-
-    if (error) {
-      console.error('Error getting session:', error)
-      return null
-    }
-
-    return session
-  } catch (error) {
-    console.error('Error in getSession:', error)
-    return null
-  }
-}

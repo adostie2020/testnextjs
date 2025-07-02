@@ -1,11 +1,11 @@
+import { Suspense } from 'react'
 import siteMetadata from '@/data/siteMetadata'
 import headerNavLinks from '@/data/headerNavLinks'
 import Logo from '@/data/logo.svg'
 import Link from './Link'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
-import LogoutButton from './LogoutButton'
-import LoginButton from './LoginButton'
+import AuthButtons from './AuthButtons'
 import SearchButton from './SearchButton'
 
 const Header = () => {
@@ -46,8 +46,15 @@ const Header = () => {
         </div>
         <SearchButton />
         <ThemeSwitch />
-        <LoginButton />
-        <LogoutButton />
+        <Suspense
+          fallback={
+            <div className="hover:text-primary-500 dark:hover:text-primary-400 m-1 font-medium text-gray-900 dark:text-gray-100">
+              Loading...
+            </div>
+          }
+        >
+          <AuthButtons />
+        </Suspense>
         <MobileNav />
       </div>
     </header>

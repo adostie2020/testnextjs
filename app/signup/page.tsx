@@ -1,78 +1,58 @@
-'use client'
-import { useState, Suspense } from 'react'
-import { useRouter } from 'next/navigation'
-import { useSearchParams } from 'next/navigation'
-import { createClient } from '@/lib/supabase/client'
+import { Suspense } from 'react'
+import Link from '@/components/Link'
+import { signup } from '../login/actions'
 
-function SignupContent() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [err, setErr] = useState('')
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const nextPath = searchParams.get('next') || '/'
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-
-    const supabase = createClient()
-    // Supabase email/password sign-up — confirmation required
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}`,
-      },
-    })
-
-    if (error) {
-      setErr(error.message)
-      return
-    }
-
-    // If confirm-emails are ON, data.session will be null.
-    if (!data.session) {
-      router.push('/check-email')
-      return
-    }
-
-    // If confirmation step is disabled we already have a session
-    router.push(nextPath)
-  }
-
+function SignupForm({ searchParams }: { searchParams: { error?: string; next?: string } }) {
   return (
     <main className="mx-auto max-w-sm p-4">
       <h1 className="mb-4 text-2xl font-bold">Create Your Account</h1>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3" autoComplete="off">
+      <form className="flex flex-col gap-3" autoComplete="off">
+        <input type="hidden" name="next" value={searchParams.next || '/'} />
         <input
+          id="email"
+          name="email"
           type="email"
-          name="signup_email"
           placeholder="Email"
           required
           autoComplete="email"
           className="input"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
         />
         <input
+          id="password"
+          name="password"
           type="password"
-          name="signup_password"
           placeholder="Password"
           required
           autoComplete="new-password"
           className="input"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
         />
-        {err && <p className="text-red-500">{err}</p>}
-        <button className="btn-primary">Sign up</button>
+        {searchParams.error && <p className="text-red-500">{searchParams.error}</p>}
+        <button formAction={signup} className="btn-primary">
+          Sign up
+        </button>
       </form>
+
+      <p className="mt-4 text-center text-sm">
+        Already have an account?{' '}
+        <Link
+          href={`/login${searchParams.next ? `?next=${encodeURIComponent(searchParams.next)}` : ''}`}
+          className="text-primary-600 dark:text-primary-400 underline"
+        >
+          Log in
+        </Link>
+      </p>
     </main>
   )
 }
 
-export default function Signup() {
+export default async function Signup({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string; next?: string }>
+}) {
+  const resolvedSearchParams = await searchParams
+
   return (
     <Suspense
       fallback={
@@ -82,7 +62,7 @@ export default function Signup() {
         </main>
       }
     >
-      <SignupContent />
+      <SignupForm searchParams={resolvedSearchParams} />
     </Suspense>
   )
 }

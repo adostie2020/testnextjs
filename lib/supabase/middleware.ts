@@ -33,11 +33,27 @@ export async function updateSession(request: NextRequest) {
 
   const {
     data: { user },
+    error,
   } = await supabase.auth.getUser()
 
+  // Handle migration-related token refresh errors gracefully
+  if (error && error.message?.includes('refresh_token_not_found')) {
+    // Clear invalid auth cookies during migration from client-side to server-side auth
+    const response = NextResponse.next({ request })
+    response.cookies.delete('sb-access-token')
+    response.cookies.delete('sb-refresh-token')
+    // Clear all supabase-related cookies to ensure clean slate
+    request.cookies.getAll().forEach((cookie) => {
+      if (cookie.name.startsWith('sb-') || cookie.name.includes('supabase')) {
+        response.cookies.delete(cookie.name)
+      }
+    })
+    return response
+  }
+
   // For a public website with some protected routes, we don't redirect here.
-  // Instead, let individual pages handle protection using the <Protected> component
-  // or server-side auth checks in specific routes that need them.
+  // Instead, let individual pages handle protection using server-side requireAuth()
+  // in specific routes that need authentication.
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is. If you're
   // creating a new response object with NextResponse.next() make sure to:
