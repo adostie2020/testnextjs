@@ -88,11 +88,15 @@ module.exports = () => {
     },
     // Only apply headers when not using export
     async headers() {
-      if (process.env.EXPORT) return []
       return [
         {
           source: '/(.*)',
-          headers: securityHeaders,
+          headers: [
+            {
+              key: 'Content-Security-Policy',
+              value: "script-src 'self' https://js.stripe.com 'unsafe-inline' 'unsafe-eval'",
+            },
+          ],
         },
       ]
     },

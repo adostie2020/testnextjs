@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { subscription } from '@/lib/user/userData'
 
 export async function getCurrentUser() {
   const supabase = await createClient()
@@ -27,12 +28,20 @@ export async function getCurrentUser() {
   }
 }
 
-export async function requireAuth(redirectTo = '/login') {
+export async function requireAuth(
+  redirectTo = '/login',
+  subscriptionRequired = false,
+  productIds: string[] = []
+) {
   const user = await getCurrentUser()
-
-  if (!user) {
-    redirect(redirectTo)
+  const data = await subscription()
+  console.log(data)
+  if (
+    !user ||
+    (subscriptionRequired &&
+      (!data || !productIds.includes(data.product_id) || data.status !== 'active'))
+  ) {
+    redirect(redirectTo) // Prevent further execution
   }
-
   return user
 }

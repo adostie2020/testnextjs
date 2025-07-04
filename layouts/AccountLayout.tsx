@@ -6,7 +6,7 @@ import AccountPosts from './AccountPosts'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
 import { allBlogs } from 'contentlayer/generated'
 import { SectionCards } from '@/components/components/section-cards'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/components/ui/tabs'
 import { ChartAreaInteractive } from '@/components/components/chart-area-interactive'
 import { StaticTable } from '@/components/components/ui/StaticTable'
 
@@ -83,7 +83,7 @@ async function getOrdersData(): Promise<Order[]> {
       quantity: 150,
       price: 237.49,
       stopPrice: 0,
-    }
+    },
   ]
 }
 
@@ -100,7 +100,7 @@ async function getData(): Promise<Positions[]> {
       allocation: 25000,
       profitLoss: 1520.5,
       stopPrice: 0,
-      action: 'buy new'
+      action: 'buy new',
     },
     {
       active: 'Inactive',
@@ -112,7 +112,7 @@ async function getData(): Promise<Positions[]> {
       allocation: 15000,
       profitLoss: -850.25,
       stopPrice: 0,
-      action: 'sell'
+      action: 'sell',
     },
     {
       active: 'Active',
@@ -124,7 +124,7 @@ async function getData(): Promise<Positions[]> {
       allocation: 20000,
       profitLoss: 2150.75,
       stopPrice: 0,
-      action: 'update stops'
+      action: 'update stops',
     },
     {
       active: 'Active',
@@ -134,9 +134,9 @@ async function getData(): Promise<Positions[]> {
       price: 151.94,
       quantity: 200,
       allocation: 30000,
-      profitLoss: 3250.00,
+      profitLoss: 3250.0,
       stopPrice: 0,
-      action: 'buy new'
+      action: 'buy new',
     },
     {
       active: 'Inactive',
@@ -146,9 +146,9 @@ async function getData(): Promise<Positions[]> {
       price: 378.99,
       quantity: 40,
       allocation: 10000,
-      profitLoss: -1200.50,
+      profitLoss: -1200.5,
       stopPrice: 0,
-      action: 'sell'
+      action: 'sell',
     },
     {
       active: 'Active',
@@ -160,7 +160,7 @@ async function getData(): Promise<Positions[]> {
       allocation: 50000,
       profitLoss: 4500.25,
       stopPrice: 0,
-      action: 'update stops'
+      action: 'update stops',
     },
     {
       active: 'Active',
@@ -172,7 +172,7 @@ async function getData(): Promise<Positions[]> {
       allocation: 45000,
       profitLoss: 2800.75,
       stopPrice: 0,
-      action: 'buy new'
+      action: 'buy new',
     },
     {
       active: 'Inactive',
@@ -184,8 +184,8 @@ async function getData(): Promise<Positions[]> {
       allocation: 20000,
       profitLoss: -950.25,
       stopPrice: 0,
-      action: 'sell'
-    }
+      action: 'sell',
+    },
   ]
 }
 
@@ -195,7 +195,7 @@ export default async function AccountLayout({ children, content }: Props) {
   const { account } = content
   const sortedPosts = sortPosts(allBlogs)
   const posts = allCoreContent(sortedPosts)
-  
+
   return (
     <div>
       <div className="flex flex-col gap-8 pb-16">
@@ -204,11 +204,11 @@ export default async function AccountLayout({ children, content }: Props) {
           <h1 className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-4xl font-extrabold tracking-tight text-transparent md:text-6xl dark:from-gray-100 dark:to-gray-400">
             {content.account} Dashboard
           </h1>
-          <p className="max-w-2xl text-xl text-gray-600 dark:text-gray-300">{children}</p>
+          <h1 className="max-w-2xl text-xl text-gray-600 dark:text-gray-300">{children}</h1>
         </section>
       </div>
       <div className="mx-auto flex flex-col gap-8 py-10">
-      <div className="flex flex-1 flex-col">
+        <div className="flex flex-1 flex-col">
           <div className="@container/main flex flex-1 flex-col gap-2">
             <div className="flex flex-col py-4 md:py-6">
               <h1 className="text-2xl font-bold"> New today</h1>
@@ -238,5 +238,6 @@ export default async function AccountLayout({ children, content }: Props) {
         </div>
       </div>
       <AccountPosts posts={posts} />
-  </div>)
+    </div>
+  )
 }

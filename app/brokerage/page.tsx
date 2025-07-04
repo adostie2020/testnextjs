@@ -9,8 +9,7 @@ export const metadata = genPageMetadata({ title: 'Brokerage' })
 
 export default async function Page() {
   // Server-side authentication check - will redirect to login if not authenticated
-  await requireAuth()
-
+  await requireAuth('/pricing', true, ['prod_SYcrydGZud234T', 'prod_SYcsC0mCeMEeAu'])
   const account = allInvestments.find((p) => p.slug === 'Brokerage') as Investments
   const mainContent = coreContent(account)
 
