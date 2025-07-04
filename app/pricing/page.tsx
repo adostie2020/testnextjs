@@ -3,17 +3,6 @@ import { Skeleton } from '@/components/components/ui/skeleton'
 import { Suspense } from 'react'
 import PricingTable from '@/components/pricingTable'
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'stripe-pricing-table': React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement>,
-        HTMLElement
-      >
-    }
-  }
-}
-
 async function Page() {
   // Server-side authentication check - will redirect to login if not authenticated
   return (

@@ -1,23 +1,11 @@
 import { requireAuth } from '@/lib/auth-server'
-import { customer } from '@/lib/user/userData'
+import { customer as customerData } from '@/lib/user/userData'
 import Script from 'next/script'
 import * as React from 'react'
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'stripe-pricing-table': React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement>,
-        HTMLElement
-      >
-    }
-  }
-}
-
 async function PricingTable() {
   await requireAuth()
-  const { data } = await customer()
-  console.log(data)
+  const data = await customerData()
   const res = await fetch('https://bxfyahvadypibeogvuqg.supabase.co/functions/v1/stripe-checkout', {
     method: 'POST',
     headers: {
@@ -44,13 +32,14 @@ async function PricingTable() {
           marginRight: '-50vw',
         }}
       >
-        <stripe-pricing-table
-          pricing-table-id="prctbl_1RgXDbP9zSvTUviSpZ91JgdN"
-          publishable-key="pk_test_51RcPwvP9zSvTUviS3a5ZvLsNd0gqtZ2HgX4t76aAojWIbyMhE8lh6paTlTC8g2zFkjSxOVEP7jUUIktNTA0N9G0q00xIHbv8lw"
-          customer-session-client-secret={customer_session}
-          id="pricing"
-          style={{ display: 'block', width: '100%' }}
-        ></stripe-pricing-table>
+        {React.createElement('stripe-pricing-table', {
+          'pricing-table-id': 'prctbl_1RgXDbP9zSvTUviSpZ91JgdN',
+          'publishable-key':
+            'pk_test_51RcPwvP9zSvTUviS3a5ZvLsNd0gqtZ2HgX4t76aAojWIbyMhE8lh6paTlTC8g2zFkjSxOVEP7jUUIktNTA0N9G0q00xIHbv8lw',
+          'customer-session-client-secret': customer_session,
+          id: 'pricing',
+          style: { display: 'block', width: '100%' },
+        })}
       </div>
     </>
   ) // ✅ Remove the extra closing parenthesis

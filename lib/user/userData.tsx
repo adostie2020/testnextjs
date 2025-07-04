@@ -52,5 +52,5 @@ export const customer = async (): Promise<customer | null> => {
     return null
   }
 
-  return { data }
+  return data
 }
